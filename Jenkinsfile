@@ -1,10 +1,11 @@
 pipeline {
     agent any
     environment{
-        DOCKER_HUB_LOGIN = credentials('docker-hub')
-        REGISTRY = "roxsross12"
+        GITHUB_CREDENTIALS = credentials('GITHUB_CREDENTIALS')
+        DOCKER_HUB_LOGIN = credentials('DOCKER_HUB_CREDENTIALS')
+        REGISTRY_USR = "anmilet"
         VERSION = "1.0.0"
-        IMAGE = "prueba-jenkins"
+        IMAGE = "image-node"
     }
     stages {
         stage('init') {
@@ -42,8 +43,8 @@ pipeline {
             steps {
                 echo 'login'
                 sh 'docker login --username=$DOCKER_HUB_LOGIN_USR --password=$DOCKER_HUB_LOGIN_PSW'
-                sh 'docker tag $IMAGE:$VERSION $REGISTRY/$IMAGE:$VERSION'
-                sh 'docker push $REGISTRY/$IMAGE:$VERSION'
+                sh 'docker tag $IMAGE:$VERSION $REGISTRY_USR/$IMAGE:$VERSION'
+                sh 'docker push $REGISTRY_USR/$IMAGE:$VERSION'
 
             }
         }
